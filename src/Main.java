@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) {
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("ifconfig");
+            ProcessBuilder processBuilder = new ProcessBuilder("/sbin/ifconfig");
             processBuilder.redirectErrorStream(true);
 
             Process process = processBuilder.start();
