@@ -1,25 +1,19 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("ip", "a");
-            processBuilder.redirectErrorStream(true);
+            URL url = new URL("https://api64.ipify.org?format=text");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
-            Process process = processBuilder.start();
+            String externalIP = reader.readLine();
+            System.out.println("External IP address: " + externalIP);
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-
-            int exitCode = process.waitFor();
-            System.out.println("Exited with error code: " + exitCode);
-
-        } catch (IOException | InterruptedException e) {
+            reader.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
